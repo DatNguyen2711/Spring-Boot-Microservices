@@ -4,7 +4,7 @@ metadata:
   name: orders-service
   namespace: microsvc
   annotations:
-    sidecar.opentelemetry.io/inject: "true" 
+    sidecar.opentelemetry.io/inject: "true"
     instrumentation.opentelemetry.io/inject-java: "true"
 spec:
   replicas: 2
@@ -14,8 +14,8 @@ spec:
   template:
     metadata:
       annotations:
-        sidecar.opentelemetry.io/inject: "true" 
-        instrumentation.opentelemetry.io/inject-java: "true"         
+        sidecar.opentelemetry.io/inject: "true"
+        instrumentation.opentelemetry.io/inject-java: "true"
       labels:
         app: orders-service
         framework: spring
@@ -48,7 +48,6 @@ spec:
           name: http-orders
       imagePullSecrets:
       - name: my-dockerhub-secret
-
 ---
 apiVersion: v1
 kind: Service
@@ -60,12 +59,6 @@ spec:
   selector:
     app: orders-service
   ports:
-    - protocol: TCP
-      port: 8081
-      targetPort: http-orders
-
-
-# kubectl create secret docker-registry my-dockerhub-secret -n microsvc \
-# --docker-username=datnd2711 \
-# --docker-password=dckr_pat_L-zYxI1kfRPPbc2wxdKDvN-uscs \
-# --docker-server=https://hub.docker.com/ 
+  - protocol: TCP
+    port: 8081
+    targetPort: http-orders
